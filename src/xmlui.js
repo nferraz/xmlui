@@ -1,5 +1,5 @@
 (function () {
-  var xmlui = {};
+    var xmlui = {};
 
     var constants = {
         // Generic javascript constants that can be used inside of xml
@@ -204,24 +204,24 @@
 
         if (elements[element]) {
             var attr = attributes(el);             // remove meta-info
-          Ti.API.info("Creating " + element + " " + name + " with properties " + JSON.stringify(attr));
+            Ti.API.info("Creating " + element + " " + name + " with properties " + JSON.stringify(attr));
             xmlui[name] = elements[element](attr); // create it
         } else {
             if (element != '#text') {
               Ti.API.warn("Unknown element: " + element);
             }
-          xmlui[name] = {};
+            xmlui[name] = {};
             return;
         }
         
         // some elements may require additional setup
         // todo: add to the initialization as a function () {}
         if (el.element == 'dashboardview' || el.element == 'DashboardView') {
-          var data = [];
-          xmlui[name].appendItem = function (item) {
-            data.push(item);
-            xmlui[name].data = data;
-          };
+            var data = [];
+            xmlui[name].appendItem = function (item) {
+                data.push(item);
+                xmlui[name].data = data;
+            };
         }
     };
 
@@ -274,7 +274,7 @@
             return;
         }
 
-      Ti.API.info("Adding " + child.name + " " + child.element + " to " + paren.name + " " + paren.element);
+        Ti.API.info("Adding " + child.name + " " + child.element + " to " + paren.name + " " + paren.element);
 
         var f = add_method[pt];
 
@@ -310,9 +310,9 @@
                   var nodeName = item.nodeName;
                   obj.children.push( parseNode(item) );
               }
-            } catch (err) {
+          } catch (err) {
               Ti.API.warn("Error creating " + node.nodeName + " children: " + err.description);
-            }
+          }
         }
             
         return obj;
@@ -330,16 +330,18 @@
         return '_' + el_type + lastNameId[el_type];
     }
 
+    // var exports = {};
+
     exports.create = function (el) {
         if (!el.hasOwnProperty('element')) {
             throw("Element type not defined");
             return;
         }
 
-      if (!el.name) {
+        if (!el.name) {
             // generate a name automatically
             el.name = pickNameForElement(el.element);
-      }
+        }
 
         // Accept aliases such as <table>, <row>, instead of <tableview>, <tableviewrow>
         if (aliases[el.element]) {
@@ -377,5 +379,6 @@
         }
     };
 
+    // return exports;
 })();
 
