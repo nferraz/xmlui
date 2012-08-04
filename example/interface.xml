@@ -1,0 +1,26 @@
+<window name="win1">
+	<tabgroup name="tabGroup">
+		<tab icon="images/light_globe.png">
+			<window name="browser" backgroundColor="#fff" title="Browser">
+				<textfield name="textURL" top="5" height="35" value="http://www.appcelerator.com" borderStyle="INPUT_BORDERSTYLE_ROUNDED"/>
+				<webview name="webview1" top="45" height="250"/>
+				<view top="300" bottom="0">
+					<button name="button2" title="Go!" width="100" height="50"/>
+				</view>
+			</window>
+		</tab>
+		<tab icon="images/light_doc.png">
+			<window name="bookmarks" backgroundColor="#fff" title="Bookmarks">
+				<table name="table1" data='[{"title":"http://www.appcelerator.com"},{"title":"http://www.google.com"}]'/>
+			</window>
+		</tab>
+		<tab icon="images/light_home.png">
+			<window name="dynamicWindow" backgroundColor="#fff" title="Try it!">
+				<label text="Change some attributes of the window or button (color, size, etc):" top="5" left="5" right="5" height="auto"/>
+				<textarea name="text1" top="60" left="5" right="5" bottom="50" borderStyle="INPUT_BORDERSTYLE_ROUNDED"/>
+				<button name="button1" title="Open" bottom="5" width="128" height="40"/> 
+			</window>
+		</tab>
+	</tabgroup>
+</window>
+
