@@ -5,6 +5,23 @@
         // Generic javascript constants that can be used inside of xml
         'true':  true,
         'false':  false,
+    };
+
+    var _mergeProperties = function () {
+      var obj = {};
+      for (var i=0; i<arguments.length;i++) {
+        var src = arguments[i];
+        for (k in src) {
+          if (src.hasOwnProperty(k)) {
+            obj[k] = src[k];
+          }
+        }
+      }
+      return obj;
+    }
+
+    try {
+      var uiConstants = {
         // Titanium.UI
         'ANIMATION_CURVE_EASE_IN':      Ti.UI.iOS.ANIMATION_CURVE_EASE_IN, 
         'ANIMATION_CURVE_EASE_IN_OUT':  Ti.UI.iOS.ANIMATION_CURVE_EASE_IN_OUT, 
@@ -97,7 +114,16 @@
         'TEXT_VERTICAL_ALIGNMENT_TOP':    Ti.UI.TEXT_VERTICAL_ALIGNMENT_TOP, 
         'UNKNOWN':                      Ti.UI.UNKNOWN, 
         'UPSIDE_PORTRAIT':              Ti.UI.UPSIDE_PORTRAIT,
-/*
+      };
+
+      constants = _mergeProperties(constants,uiConstants);
+
+    } catch (e) {
+      Ti.API.warn("Error reading Ti.UI constants: " + e);
+    }
+
+    try {
+      var ipadConstants = {
         // iPad
         'POPOVER_ARROW_DIRECTION_ANY':      Ti.UI.iPad.POPOVER_ARROW_DIRECTION_ANY,
         'POPOVER_ARROW_DIRECTION_DOWN':     Ti.UI.iPad.POPOVER_ARROW_DIRECTION_DOWN,
@@ -105,20 +131,39 @@
         'POPOVER_ARROW_DIRECTION_RIGHT':    Ti.UI.iPad.POPOVER_ARROW_DIRECTION_RIGHT,
         'POPOVER_ARROW_DIRECTION_UNKNOWN':  Ti.UI.iPad.POPOVER_ARROW_DIRECTION_UNKNOWN,
         'POPOVER_ARROW_DIRECTION_UP':       Ti.UI.iPad.POPOVER_ARROW_DIRECTION_UP,
-*/
-        // iPhone
-        // todo: use actual constants, keeping in mind that they are platform-specific,
-        // and may be undefined at runtime. So we must test it:
-        // ex: if ('iPhone' in Ti.UI) { ... }
-        'MODAL_PRESENTATION_CURRENT_CONTEXT':     3,
-        'MODAL_PRESENTATION_FORMSHEET':           2,
-        'MODAL_PRESENTATION_FULLSCREEN':          0,
-        'MODAL_PRESENTATION_PAGESHEET':           1,
-        'MODAL_TRANSITION_STYLE_COVER_VERTICAL':  0,
-        'MODAL_TRANSITION_STYLE_CROSS_DISSOLVE':  2,
-        'MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL': 1,
-        'MODAL_TRANSITION_STYLE_PARTIAL_CURL':    3,
-    };
+      };
+
+      constants = _mergeProperties(constants,ipadConstants);
+
+    } catch (e) {
+      Ti.API.warn("Error reading Ti.UI.iPad constants: " + e + " (probably safe if you are not compiling for iPad)");
+    }
+
+    try {
+      var iphoneConstants = {
+        'MODAL_PRESENTATION_CURRENT_CONTEXT':     Ti.UI.iPhone.MODAL_PRESENTATION_CURRENT_CONTEXT,
+        'MODAL_PRESENTATION_FORMSHEET':           Ti.UI.iPhone.MODAL_PRESENTATION_FORMSHEET,
+        'MODAL_PRESENTATION_FULLSCREEN':          Ti.UI.iPhone.MODAL_PRESENTATION_FULLSCREEN,
+        'MODAL_PRESENTATION_PAGESHEET':           Ti.UI.iPhone.MODAL_PRESENTATION_PAGESHEET,
+        'MODAL_TRANSITION_STYLE_COVER_VERTICAL':  Ti.UI.iPhone.MODAL_TRANSITION_STYLE_COVER_VERTICAL,
+        'MODAL_TRANSITION_STYLE_CROSS_DISSOLVE':  Ti.UI.iPhone.MODAL_TRANSITION_STYLE_CROSS_DISSOLVE,
+        'MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL': Ti.UI.iPhone.MODAL_TRANSITION_STYLE_FLIP_HORIZONTAL,
+        'MODAL_TRANSITION_STYLE_PARTIAL_CURL':    Ti.UI.iPhone.MODAL_TRANSITION_STYLE_PARTIAL_CURL,
+      };
+
+      constants = _mergeProperties(constants,iphoneConstants);
+
+    } catch (e) {
+      Ti.API.warn("Error reading Ti.UI.iPhone constants: " + e + " (probably safe if you are not compiling for iPhone)");
+    }
+
+    try {
+      var androidConstants = {};
+      constants = _mergeProperties(constants,androidConstants);
+    } catch (e) {
+      Ti.API.warn("Error reading Ti.UI.Android constants: " + e + " (probably safe if you are not compiling for Android)");
+    }
+
 
     var attributes = function (el) {
         var skip = {
