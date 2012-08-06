@@ -1,4 +1,4 @@
-(function () {
+var XMLUI = function () {
     var xmlui = {};
 
     var constants = {
@@ -375,7 +375,7 @@
         return '_' + el_type + lastNameId[el_type];
     }
 
-    // var exports = {};
+    var exports = {};
 
     exports.create = function (el) {
         if (!el.hasOwnProperty('element')) {
@@ -424,6 +424,6 @@
         }
     };
 
-    // return exports;
-})();
+    return exports;
+};
 
