@@ -191,50 +191,80 @@
     };
    
     var elements = {
-            // Titanium.UI
-            'activityindicator' :   Ti.UI.createActivityIndicator,
-            'adview' :               Ti.UI.iOS.createAdView,
-            'alertdialog' :         Ti.UI.createAlertDialog,
-            'button' :              Ti.UI.createButton,
-            'buttonbar' :           Ti.UI.createButtonBar,
-            'coverflowview' :       Ti.UI.createCoverFlowView,
-            'dashboarditem' :       Ti.UI.createDashboardItem,
-            'dashboardview' :       Ti.UI.createDashboardView,
-            'emaildialog' :         Ti.UI.createEmailDialog,
-            'facebooklogin' :       Ti.Facebook.createLoginButton,
-            'imageview' :           Ti.UI.createImageView,
-            'label' :               Ti.UI.createLabel,
-            'optiondialog' :        Ti.UI.createOptionDialog,
-            'picker' :              Ti.UI.createPicker,
-            'pickercolumn' :        Ti.UI.createPickerColumn,
-            'pickerrow' :           Ti.UI.createPickerRow,
-            'progressbar' :         Ti.UI.createProgressBar,
-            'scrollview' :          Ti.UI.createScrollView,
-            'scrollableview' :      Ti.UI.createScrollableView,
-            'searchbar' :           Ti.UI.createSearchBar,
-            'slider' :              Ti.UI.createSlider,
-            'switch' :              Ti.UI.createSwitch,
-            'tab' :                 Ti.UI.createTab,
-            'tabgroup' :            Ti.UI.createTabGroup,
-            'tabbedbar' :           Ti.UI.createTabbedBar,
-            'tableview' :           Ti.UI.createTableView,
-            'tableviewrow' :        Ti.UI.createTableViewRow,
-            'tableviewsection' :    Ti.UI.createTableViewSection,
-            'textarea' :            Ti.UI.createTextArea,
-            'textfield' :           Ti.UI.createTextField,
-            'toolbar' :             Ti.UI.createToolbar,
-            'view' :                Ti.UI.createView,
-            'webview' :             Ti.UI.createWebView,
-            'window' :              Ti.UI.createWindow,
-/*
-            // iOS
-            'adview' :              Ti.UI.iOS.createAdView,
-            // iPad
-            'popover' :             Ti.UI.iPad.createPopover,
-            'splitwindow' :         Ti.UI.iPad.createSplitWindow,
-            // iPhone
-            'navigationgroup' :     Ti.UI.iPhone.NavigationGroup,
-*/
+        // Titanium.UI elements (tag to creation methods)
+        'activityindicator' :   Ti.UI.createActivityIndicator,
+        'alertdialog' :         Ti.UI.createAlertDialog,
+        'button' :              Ti.UI.createButton,
+        'buttonbar' :           Ti.UI.createButtonBar,
+        'coverflowview' :       Ti.UI.createCoverFlowView,
+        'dashboarditem' :       Ti.UI.createDashboardItem,
+        'dashboardview' :       Ti.UI.createDashboardView,
+        'emaildialog' :         Ti.UI.createEmailDialog,
+        'imageview' :           Ti.UI.createImageView,
+        'label' :               Ti.UI.createLabel,
+        'optiondialog' :        Ti.UI.createOptionDialog,
+        'picker' :              Ti.UI.createPicker,
+        'pickercolumn' :        Ti.UI.createPickerColumn,
+        'pickerrow' :           Ti.UI.createPickerRow,
+        'progressbar' :         Ti.UI.createProgressBar,
+        'scrollview' :          Ti.UI.createScrollView,
+        'scrollableview' :      Ti.UI.createScrollableView,
+        'searchbar' :           Ti.UI.createSearchBar,
+        'slider' :              Ti.UI.createSlider,
+        'switch' :              Ti.UI.createSwitch,
+        'tab' :                 Ti.UI.createTab,
+        'tabgroup' :            Ti.UI.createTabGroup,
+        'tabbedbar' :           Ti.UI.createTabbedBar,
+        'tableview' :           Ti.UI.createTableView,
+        'tableviewrow' :        Ti.UI.createTableViewRow,
+        'tableviewsection' :    Ti.UI.createTableViewSection,
+        'textarea' :            Ti.UI.createTextArea,
+        'textfield' :           Ti.UI.createTextField,
+        'toolbar' :             Ti.UI.createToolbar,
+        'view' :                Ti.UI.createView,
+        'webview' :             Ti.UI.createWebView,
+        'window' :              Ti.UI.createWindow,
+    };
+
+    try {
+      var iOSElements = {
+        'adview' : Ti.UI.iOS.createAdView,
+      };
+
+      _mergeProperties(elements,iOSElements);
+    } catch (e) {
+      Ti.API.warn("Error reading Ti.UI elements: " + e);
+    }
+
+    try {
+      var ipadElements = {
+        'popover' :     Ti.UI.iPad.createPopover,
+        'splitwindow' : Ti.UI.iPad.createSplitWindow,
+      };
+
+      _mergeProperties(elements,ipadElements);
+    } catch (e) {
+      Ti.API.warn("Error reading Ti.UI.iPad elements: " + e + " (probably safe if you are not compiling for iPad)");
+    }
+
+    try {
+      var iphoneElements = {
+        'navigationgroup' : Ti.UI.iPhone.NavigationGroup,
+      };
+
+      _mergeProperties(elements,iphoneElements);
+    } catch (e) {
+      Ti.API.warn("Error reading Ti.UI.iPhone elements: " + e + " (probably safe if you are not compiling for iPhone)");
+    }
+
+    try {
+      var fbElements = {
+        'facebooklogin' : Ti.Facebook.createLoginButton,
+      };
+
+      _mergeProperties(elements,fbElements);
+    } catch (e) {
+      Ti.API.warn("Error reading Ti.Facebook elements: " + e);
     };
 
     var aliases = {
